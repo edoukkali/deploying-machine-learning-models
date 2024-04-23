@@ -44,7 +44,8 @@ jobs:
 
     - name: Run OWASP Dependency-Check
       run: |
-        curl -LO https://dl.bintray.com/jeremy-long/owasp/dependency-check-7.0.0-release.zip
+        VERSION=$(curl -s https://jeremylong.github.io/DependencyCheck/current.txt)
+        curl -Ls "https://github.com/jeremylong/DependencyCheck/releases/download/v$VERSION/dependency-check-$VERSION-release.zip" --output dependency-check.zip
         unzip dependency-check-7.0.0-release.zip
         cd dependency-check/bin
         ./dependency-check.sh --project "MyProject" --scan . --format "ALL" --out /tmp/dependency-check-report
