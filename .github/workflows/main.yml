@@ -1,0 +1,53 @@
+name: Code Scanning
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  codeql-analysis:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        language: [ 'javascript', 'typescript', 'python' ]  # Adjust the list based on your project's language
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+        languages: ${{ matrix.language }}
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
+
+  dependency-check:
+    name: OWASP Dependency-Check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Java
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'  # Adjust the Java version if needed
+
+    - name: Run OWASP Dependency-Check
+      run: |
+        curl -LO https://dl.bintray.com/jeremy-long/owasp/dependency-check-7.0.0-release.zip
+        unzip dependency-check-7.0.0-release.zip
+        cd dependency-check/bin
+        ./dependency-check.sh --project "MyProject" --scan . --format "ALL" --out /tmp/dependency-check-report
+        # Output results
+        cat /tmp/dependency-check-report/dependency-check-report.json
+
