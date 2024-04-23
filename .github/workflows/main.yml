@@ -46,9 +46,9 @@ jobs:
       run: |
         VERSION=$(curl -s https://jeremylong.github.io/DependencyCheck/current.txt)
         curl -Ls "https://github.com/jeremylong/DependencyCheck/releases/download/v$VERSION/dependency-check-$VERSION-release.zip" --output dependency-check.zip
-        unzip dependency-check-7.0.0-release.zip
+        unzip dependency-check.zip
         cd dependency-check/bin
-        ./dependency-check.sh --project "MyProject" --scan . --format "ALL" --out /tmp/dependency-check-report
+        ./dependency-check.sh --project "deploying-machine-learning-models" --scan . --format "ALL" --out /tmp/dependency-check-report
         # Output results
         cat /tmp/dependency-check-report/dependency-check-report.json
 
