@@ -19,10 +19,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v1
 
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
+      uses: github/codeql-action/init@v1
       with:
         languages: ${{ matrix.language }}
 
@@ -35,10 +35,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v1
 
     - name: Setup Java
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v1
       with:
         java-version: '17'  # Adjust the Java version if needed
 
