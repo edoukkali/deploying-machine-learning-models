@@ -19,15 +19,15 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
+      uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@v3
 
   dependency-check:
     name: OWASP Dependency-Check
@@ -40,7 +40,7 @@ jobs:
     - name: Setup Java
       uses: actions/setup-java@v2
       with:
-        java-version: '11'  # Adjust the Java version if needed
+        java-version: '17'  # Adjust the Java version if needed
 
     - name: Run OWASP Dependency-Check
       run: |
